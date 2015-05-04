@@ -66,7 +66,7 @@ public class DirectoryServer {
 
     public static void main(String[] args) throws IOException, InterruptedException {
     	
-    	GUI window = new GUI();
+    	serverGUI window = new serverGUI();
     	window.getFrame().setVisible(true);
     	 	
     	initializeDirectory();
@@ -79,8 +79,8 @@ public class DirectoryServer {
     
     private class listenThread implements Runnable{
 
-    	GUI window;
-    	public listenThread(GUI window){
+    	serverGUI window;
+    	public listenThread(serverGUI window){
     		this.window = window;
     	}
 		@Override
@@ -97,7 +97,7 @@ public class DirectoryServer {
     }
     	
     	  	
-    public static void startListening(GUI window) throws IOException, InterruptedException{
+    public static void startListening(serverGUI window) throws IOException, InterruptedException{
         //Initialize an empty socket.
         DatagramSocket socket = null;
         
@@ -212,7 +212,7 @@ public class DirectoryServer {
     		System.out.println(e);*/
     }
     
-    public static void extractData(GUI window) throws IOException{
+    public static void extractData(serverGUI window) throws IOException{
     	
     	if(method.equals(INFORM_AND_UPDATE))
     		Update(window);
@@ -222,7 +222,7 @@ public class DirectoryServer {
     		Exit(IPAddress, window);
     }
 
-    public static void parseMessage(String s, GUI window){
+    public static void parseMessage(String s, serverGUI window){
         
         message = s.split("[\r\n]+");
         
@@ -233,7 +233,7 @@ public class DirectoryServer {
         
     }
     
-    public static void Update(GUI window) throws IOException{
+    public static void Update(serverGUI window) throws IOException{
         for(int i=1; i<message.length; i++){  
             String[] temp = message[i].split("[:]");
             directory.add(new Entry(IPAddress, temp[0], temp[1]));           
@@ -274,7 +274,7 @@ public class DirectoryServer {
     	return peerIP;
     }
     
-    public static void Exit(String ip, GUI window) throws IOException{
+    public static void Exit(String ip, serverGUI window) throws IOException{
     	int max = directory.size();
     	int i = 0;
     	while(i < max){
